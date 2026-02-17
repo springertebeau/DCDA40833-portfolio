@@ -9,9 +9,17 @@
 <body>
     <header>
         <nav>
-            <a href="index.html">Home</a>
-            <a href="lab02.html" class="active">Lab 2: AI Evaluation</a>
-            <!-- Add more lab links as the semester progresses -->
+            <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="lab02.html" class="active">Lab 2: AI Evaluation</a></li>
+                <li><a href="lab03.html">Lab 3: Visualization Critique</a></li>
+                <li><a href="lab04.html">Lab 4: Tableau Visualization</a></li>
+            </ul>
         </nav>
         <h1>AI Tool Evaluation</h1>
     </header>
@@ -72,5 +80,31 @@
     <footer>
         <p>&copy; 2026 Springer Tebeau | <a href="https://springertebeau.github.io/DCDA40833-portfolio/">GitHub</a></p>
     </footer>
+
+    <!-- Hamburger Menu Script -->
+    <script>
+        // Get the hamburger button and nav menu
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        // Toggle menu when hamburger is clicked
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            // Update aria-expanded for accessibility
+            const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+            hamburger.setAttribute('aria-expanded', !isExpanded);
+        });
+
+        // Close menu when a nav link is clicked
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            });
+        });
+    </script>
 </body>
 </html>
