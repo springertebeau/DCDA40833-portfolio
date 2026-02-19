@@ -16,11 +16,15 @@
             <span class="hamburger-line"></span>
             <span class="hamburger-line"></span>
         </button>
+        <button class="dark-mode-toggle" aria-label="Toggle dark mode">
+            <span class="icon">🌙</span>
+        </button>
         <ul class="nav-menu">
             <li><a href="index.html">Home</a></li>
             <li><a href="lab02.html">Lab 2: AI Evaluation</a></li>
             <li><a href="lab03.html">Lab 3: Visualization Critique</a></li>
             <li><a href="lab04.html">Lab 4: Tableau Visualization</a></li>
+            <li><a href="lab05.html">Lab 5: Vibe Coding</a></li>
         </ul>
     </nav>
 
@@ -84,11 +88,11 @@
                     <p>Interactive data visualization created with Tableau Public, exploring patterns in real-world data.</p>
                 </a>
 
-                <!-- Lab 5: TBD -->
-                <a href="lab5.html" class="portfolio-card">
-                    <h3>Lab 5</h3>
+                <!-- Lab 5: Vibe Coding -->
+                <a href="lab05.html" class="portfolio-card">
+                    <h3>Vibe Coding</h3>
                     <span class="lab-tag">Lab 5</span>
-                    <p>Content based on Lab 5 assignment.</p>
+                    <p>AI-assisted development exploring dark mode implementation and Python data visualization with critical reflection on collaborative coding.</p>
                 </a>
 
                 <!-- Lab 6: Hometown Map -->
@@ -141,6 +145,39 @@
                 navMenu.classList.remove('active');
                 hamburger.setAttribute('aria-expanded', 'false');
             });
+        });
+
+        // Dark Mode Toggle
+        // AI-Generated: I asked AI to create JavaScript that toggles dark mode and saves the preference
+        // Understanding: This code does several things:
+        // 1. Gets the toggle button element from the DOM using querySelector
+        // 2. Checks localStorage to see if user previously selected dark mode (persistence across page loads)
+        // 3. Adds a click event listener that toggles the 'dark-mode' class on the body element
+        // 4. Changes the icon between moon (🌙) and sun (☀️) depending on current mode
+        // 5. Saves the user's preference to localStorage so it persists when they return
+        // I understand how localStorage works - it's browser storage that persists data between sessions
+        const darkModeToggle = document.querySelector('.dark-mode-toggle');
+        const body = document.body;
+        const icon = darkModeToggle.querySelector('.icon');
+
+        // Check if dark mode was previously enabled
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            body.classList.add('dark-mode');
+            icon.textContent = '☀️';
+        }
+
+        // Toggle dark mode on button click
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            // Update icon and save preference
+            if (body.classList.contains('dark-mode')) {
+                icon.textContent = '☀️';
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                icon.textContent = '🌙';
+                localStorage.setItem('darkMode', 'disabled');
+            }
         });
     </script>
 </body>

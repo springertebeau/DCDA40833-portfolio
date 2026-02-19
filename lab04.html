@@ -14,11 +14,15 @@
 				<span class="hamburger-line"></span>
 				<span class="hamburger-line"></span>
 			</button>
+			<button class="dark-mode-toggle" aria-label="Toggle dark mode">
+				<span class="icon">🌙</span>
+			</button>
 			<ul class="nav-menu">
 				<li><a href="index.html">Home</a></li>
 				<li><a href="lab02.html">Lab 2: AI Evaluation</a></li>
 				<li><a href="lab03.html">Lab 3: Visualization Critique</a></li>
 				<li><a href="lab04.html" class="active">Lab 4: Tableau Visualization</a></li>
+				<li><a href="lab05.html">Lab 5: Vibe Coding</a></li>
 			</ul>
 		</nav>
 		<h1>Lab 4: Tableau Project</h1>
@@ -100,6 +104,28 @@
 				navMenu.classList.remove('active');
 				hamburger.setAttribute('aria-expanded', 'false');
 			});
+		});
+
+		// Dark Mode Toggle
+		const darkModeToggle = document.querySelector('.dark-mode-toggle');
+		const body = document.body;
+		const icon = darkModeToggle.querySelector('.icon');
+
+		if (localStorage.getItem('darkMode') === 'enabled') {
+			body.classList.add('dark-mode');
+			icon.textContent = '☀️';
+		}
+
+		darkModeToggle.addEventListener('click', () => {
+			body.classList.toggle('dark-mode');
+			
+			if (body.classList.contains('dark-mode')) {
+				icon.textContent = '☀️';
+				localStorage.setItem('darkMode', 'enabled');
+			} else {
+				icon.textContent = '🌙';
+				localStorage.setItem('darkMode', 'disabled');
+			}
 		});
 	</script>
 </body>
