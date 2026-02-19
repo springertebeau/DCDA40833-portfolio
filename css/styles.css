@@ -68,9 +68,15 @@ body {
 header {
     background-color: var(--primary-color);
     color: white;
-    padding: 2rem 0;
+    padding: 2rem 1rem;
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Header content wrapper to align with nav */
+.header-content {
+    max-width: 900px;          /* Match nav and main content width */
+    margin: 0 auto;            /* Center the container */
 }
 
 header h1 {
@@ -88,13 +94,20 @@ header p {
 nav {
     background-color: #f4a6c8;
     padding: 0.75rem;
-    display: flex;              /* Make nav a flex container */
-    justify-content: center;    /* Center the ul inside nav */
-    align-items: center;        /* Center items vertically */
     position: sticky;           /* Stick to top when scrolling */
     top: 0;
     z-index: 100;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Navigation content wrapper to align with header */
+.nav-container {
+    max-width: 900px;          /* Match main content width */
+    margin: 0 auto;            /* Center the container */
+    display: flex;
+    justify-content: center;    /* Center the menu items */
+    align-items: center;
+    position: relative;         /* For absolute positioning of dark mode toggle */
 }
 
 /* Style the navigation list */
@@ -141,12 +154,13 @@ nav a:hover {
 /* =========================
    Dark Mode Toggle Button
    AI-Generated: I asked AI to create a moon/sun icon toggle button
-   Understanding: The toggle uses margin-left auto to push it to the right of the nav bar.
+   Understanding: The toggle uses absolute positioning to sit on the left of the nav bar.
    The moon/sun icons are created using Unicode characters (🌙 and ☀️). The transition property
    creates a smooth animation when the button is clicked. I modified the AI's original padding
    to make it more touch-friendly on mobile devices. */
 .dark-mode-toggle {
-    margin-left: auto;
+    position: absolute;
+    left: 1rem;
     background: rgba(255, 255, 255, 0.2);
     border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 20px;
