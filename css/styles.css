@@ -90,6 +90,7 @@ nav {
     padding: 0.75rem;
     display: flex;              /* Make nav a flex container */
     justify-content: center;    /* Center the ul inside nav */
+    align-items: center;        /* Center items vertically */
     position: sticky;           /* Stick to top when scrolling */
     top: 0;
     z-index: 100;
@@ -140,15 +141,12 @@ nav a:hover {
 /* =========================
    Dark Mode Toggle Button
    AI-Generated: I asked AI to create a moon/sun icon toggle button
-   Understanding: The toggle uses position:absolute to place it in the top-right of the nav bar.
+   Understanding: The toggle uses margin-left auto to push it to the right of the nav bar.
    The moon/sun icons are created using Unicode characters (🌙 and ☀️). The transition property
    creates a smooth animation when the button is clicked. I modified the AI's original padding
    to make it more touch-friendly on mobile devices. */
 .dark-mode-toggle {
-    position: absolute;
-    right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
+    margin-left: auto;
     background: rgba(255, 255, 255, 0.2);
     border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 20px;
@@ -165,11 +163,11 @@ nav a:hover {
 
 .dark-mode-toggle:hover {
     background: rgba(255, 255, 255, 0.3);
-    transform: translateY(-50%) scale(1.05);
+    transform: scale(1.05);
 }
 
 .dark-mode-toggle:active {
-    transform: translateY(-50%) scale(0.95);
+    transform: scale(0.95);
 }
 
 /* Icon inside the toggle button */
