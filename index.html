@@ -161,28 +161,31 @@
         // 5. Saves the user's preference to localStorage so it persists when they return
         // I understand how localStorage works - it's browser storage that persists data between sessions
         const darkModeToggle = document.querySelector('.dark-mode-toggle');
-        const body = document.body;
-        const icon = darkModeToggle.querySelector('.icon');
+        
+        if (darkModeToggle) {
+            const body = document.body;
+            const icon = darkModeToggle.querySelector('.icon');
 
-        // Check if dark mode was previously enabled
-        if (localStorage.getItem('darkMode') === 'enabled') {
-            body.classList.add('dark-mode');
-            icon.textContent = '☀️';
-        }
-
-        // Toggle dark mode on button click
-        darkModeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            
-            // Update icon and save preference
-            if (body.classList.contains('dark-mode')) {
+            // Check if dark mode was previously enabled
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                body.classList.add('dark-mode');
                 icon.textContent = '☀️';
-                localStorage.setItem('darkMode', 'enabled');
-            } else {
-                icon.textContent = '🌙';
-                localStorage.setItem('darkMode', 'disabled');
             }
-        });
+
+            // Toggle dark mode on button click
+            darkModeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                
+                // Update icon and save preference
+                if (body.classList.contains('dark-mode')) {
+                    icon.textContent = '☀️';
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    icon.textContent = '🌙';
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+            });
+        }
     </script>
 </body>
 </html>
