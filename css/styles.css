@@ -148,19 +148,22 @@ nav a:hover {
     cursor: pointer;
     padding: 0.5rem;
     z-index: 101;
-    position: relative;
+    position: absolute;         /* Position relative to nav */
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 /* =========================
    Dark Mode Toggle Button
    AI-Generated: I asked AI to create a moon/sun icon toggle button
-   Understanding: The toggle uses absolute positioning to sit on the left of the nav bar.
+   Understanding: The toggle uses absolute positioning to sit on the right of the nav bar.
    The moon/sun icons are created using Unicode characters (🌙 and ☀️). The transition property
    creates a smooth animation when the button is clicked. I modified the AI's original padding
    to make it more touch-friendly on mobile devices. */
 .dark-mode-toggle {
     position: absolute;
-    left: 1rem;
+    right: 1rem;
     background: rgba(255, 255, 255, 0.2);
     border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 20px;
@@ -505,9 +508,13 @@ footer a:hover {
 
     nav {
         font-size: 0.9rem;
+        padding: 1rem;
+    }
+
+    .nav-container {
         flex-direction: column;
         align-items: flex-start;
-        padding: 1rem;
+        width: 100%;
     }
 
     .nav-menu {
