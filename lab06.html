@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Lab 6: Custom Basemap Design & Interactive Hometown Map">
+    <meta name="author" content="Springer Tebeau">
+    <title>Lab 6: Interactive Mapping | Springer Tebeau</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+        <div class="nav-container">
+            <button class="dark-mode-toggle" aria-label="Toggle dark mode">
+                <span class="icon">🌙</span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="lab02.html">Lab 2: AI Evaluation</a></li>
+                <li><a href="lab03.html">Lab 3: Visualization Critique</a></li>
+                <li><a href="lab04.html">Lab 4: Tableau Visualization</a></li>
+                <li><a href="lab05.html">Lab 5: Vibe Coding</a></li>
+                <li><a href="lab06.html">Lab 6: Interactive Mapping</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <h1>Lab 6: Custom Basemap Design & Interactive Hometown Map</h1>
+            <p>Python Mapping with Folium & Mapbox Studio</p>
+        </div>
+    </header>
+
+    <main>
+        <!-- Overview Section -->
+        <section id="overview">
+            <h2>Overview</h2>
+            <p>This lab combines interactive web mapping with custom cartographic design. I created a personalized, art-inspired basemap using Mapbox Studio, built a dataset of meaningful locations from my hometown, and integrated both into an interactive web map using Python.</p>
+            
+            <p>The lab consists of three main components:</p>
+            <ul>
+                <li><strong>Part 1:</strong> Custom Mapbox Basemap Design</li>
+                <li><strong>Part 2:</strong> Hometown Locations Dataset (CSV)</li>
+                <li><strong>Part 3:</strong> Python-Generated Interactive Map</li>
+            </ul>
+        </section>
+
+        <!-- Part 1: Custom Basemap Section -->
+        <section id="part1">
+            <h2>Part 1: Custom Mapbox Basemap Design</h2>
+            
+            <h3>Design Inspiration</h3>
+            <p><!-- TODO: Describe your design inspiration here (art, film, TV show, etc.) -->
+            For my custom basemap, I drew inspiration from [YOUR INSPIRATION SOURCE]. The color palette and aesthetic choices reflect [DESCRIBE HOW YOUR INSPIRATION INFLUENCED YOUR DESIGN].</p>
+            
+            <div class="image-container">
+                <!-- TODO: Add reference images from your inspiration source -->
+                <img src="images/inspiration_reference.jpg" alt="Design inspiration reference" style="max-width: 100%; height: auto;">
+                <p class="caption">Reference images from my design inspiration</p>
+            </div>
+
+            <h3>Mapbox Studio Design Process</h3>
+            <p>I created my custom basemap in Mapbox Studio starting from a blank template. The design includes the following customized components:</p>
+            <ul>
+                <li><strong>Land, Water & Sky:</strong> Custom color scheme matching my inspiration</li>
+                <li><strong>Road Network:</strong> Styled with varying widths and colors for different road types</li>
+                <li><strong>Place Labels:</strong> Custom fonts and visibility settings across zoom levels</li>
+                <li><strong>POI Labels:</strong> Selectively displayed points of interest</li>
+                <li><strong>Terrain Component:</strong> Added hillshade and contours for depth</li>
+                <li><strong>Additional Layers:</strong> [List any additional custom layers]</li>
+            </ul>
+
+            <div class="image-container">
+                <!-- TODO: Add screenshot of your Mapbox basemap -->
+                <img src="images/mapbox_basemap.png" alt="Custom Mapbox basemap design" style="max-width: 100%; height: auto;">
+                <p class="caption">My custom Mapbox basemap design</p>
+            </div>
+
+            <h3>Scale-Aware Design</h3>
+            <p>I used "Style across zoom range" to ensure the map looks intentional at different scales. Key considerations included:</p>
+            <ul>
+                <li>Making labels larger and more detailed at higher zoom levels</li>
+                <li>Hiding certain features at world/regional scales</li>
+                <li>Adjusting road visibility based on importance and zoom level</li>
+            </ul>
+        </section>
+
+        <!-- Part 2: Dataset Section -->
+        <section id="part2">
+            <h2>Part 2: Hometown Locations Dataset</h2>
+            
+            <h3>Location Selection</h3>
+            <p><!-- TODO: Describe your hometown and why you chose these locations -->
+            I selected [NUMBER] meaningful locations from [YOUR HOMETOWN]. These are places I would show a friend visiting for the first time. The locations span multiple categories including restaurants, parks, cultural sites, and historical landmarks.</p>
+
+            <h3>Dataset Structure</h3>
+            <p>I created a CSV file (<code>hometown_locations.csv</code>) with the following structure:</p>
+            <ul>
+                <li><strong>Name:</strong> The name of each location</li>
+                <li><strong>Address:</strong> Full street address for geocoding</li>
+                <li><strong>Type:</strong> Category (Restaurant, Park, Cultural, Historical, etc.)</li>
+                <li><strong>Description:</strong> Personal explanation of why each place is meaningful</li>
+                <li><strong>Image_URL:</strong> URL to an image of the location</li>
+            </ul>
+
+            <div class="framework-callout">
+                <h3>📊 Sample Data</h3>
+                <pre><code>Name,Address,Type,Description,Image_URL
+"Example Location","123 Main St, City, State ZIP",Restaurant,"This is why this place is meaningful...",https://example.com/image.jpg</code></pre>
+            </div>
+        </section>
+
+        <!-- Part 3: Interactive Map Section -->
+        <section id="part3">
+            <h2>Part 3: Python Interactive Map</h2>
+            
+            <h3>Technical Implementation</h3>
+            <p>I used Python with the following libraries to create the interactive map:</p>
+            <ul>
+                <li><strong>Pandas:</strong> For reading and managing the CSV dataset</li>
+                <li><strong>Requests:</strong> For accessing the Mapbox Geocoding API</li>
+                <li><strong>Folium:</strong> For creating the interactive web map</li>
+            </ul>
+
+            <h4>Key Features</h4>
+            <ul>
+                <li>Geocoded all addresses using the Mapbox Geocoding API</li>
+                <li>Integrated my custom Mapbox basemap as the base layer</li>
+                <li>Color-coded markers by location type</li>
+                <li>Created interactive pop-ups with images and personal descriptions</li>
+                <li>Exported the final map as an HTML file</li>
+            </ul>
+
+            <h3>Final Interactive Map</h3>
+            <div class="framework-callout">
+                <h3>🗺️ Explore My Hometown</h3>
+                <p>Below is the interactive map showing my personally curated hometown locations. Click on any marker to see details, descriptions, and images.</p>
+            </div>
+
+            <div class="map-container" style="margin-top: 20px; margin-bottom: 20px;">
+                <!-- TODO: Embed your generated hometown map HTML here -->
+                <!-- Option 1: Use iframe -->
+                <iframe src="hometown_map.html" width="100%" height="600px" style="border: 1px solid #ddd;"></iframe>
+                
+                <!-- Option 2: Or link to the map -->
+                <!-- <p><a href="hometown_map.html" target="_blank" class="button">Open Interactive Map in New Tab</a></p> -->
+            </div>
+
+            <h3>Code Explanation</h3>
+            <p>The Python script follows this workflow:</p>
+            <ol>
+                <li>Read the CSV file using pandas</li>
+                <li>For each location, send the address to Mapbox Geocoding API to get lat/long coordinates</li>
+                <li>Create a Folium map centered on my hometown with my custom Mapbox basemap</li>
+                <li>Add markers with different colors based on location type</li>
+                <li>Create HTML pop-ups with location name, description, and image</li>
+                <li>Save the map as an HTML file</li>
+            </ol>
+
+            <div class="framework-callout">
+                <h3>💻 View the Code</h3>
+                <p>The complete Python script is available in <code>hometown_map.py</code>.</p>
+            </div>
+        </section>
+
+        <!-- Reflection Section -->
+        <section id="reflection">
+            <h2>Written Reflection</h2>
+            
+            <h3>Design Inspiration</h3>
+            <p><!-- TODO: Write about your design inspiration (150-200 words) -->
+            [Explain what inspired your basemap design. How did you translate visual elements like colors, mood, and style from your inspiration source into your map design?]
+            </p>
+
+            <h3>Cartographic Challenges</h3>
+            <p><!-- TODO: Write about cartographic challenges (150-200 words) -->
+            [What were the main challenges when designing for multiple scales? How did you decide what features to show at different zoom levels? What principles of map generalization did you apply?]
+            </p>
+
+            <h3>Technical Challenges</h3>
+            <p><!-- TODO: Write about technical challenges (150-200 words) -->
+            [What coding challenges did you encounter? How did you approach geocoding, API integration, and marker customization? How did AI tools help (if applicable)?]
+            </p>
+        </section>
+
+        <!-- Self-Assessment Section -->
+        <section id="self-assessment">
+            <h2>Self-Assessment</h2>
+            
+            <h3>Design Coherence</h3>
+            <p><!-- TODO: Self-assess design coherence -->
+            [Does your basemap have a clear connection to the inspiration source?]
+            </p>
+
+            <h3>Scale Awareness</h3>
+            <p><!-- TODO: Self-assess scale awareness -->
+            [Does your map look intentional at different zoom levels?]
+            </p>
+
+            <h3>Data Quality</h3>
+            <p><!-- TODO: Self-assess data quality -->
+            [Are your location descriptions genuinely personal and meaningful?]
+            </p>
+
+            <h3>Code Understanding</h3>
+            <p><!-- TODO: Self-assess code understanding -->
+            [Can you explain what each section of your code does?]
+            </p>
+
+            <h3>Portfolio Quality</h3>
+            <p><!-- TODO: Self-assess portfolio quality -->
+            [Does this work represent something you're proud to show?]
+            </p>
+        </section>
+
+        <!-- Resources Section -->
+        <section id="resources">
+            <h2>Resources & Links</h2>
+            <ul>
+                <li><a href="https://docs.mapbox.com/studio-manual/" target="_blank">Mapbox Studio Manual</a></li>
+                <li><a href="https://docs.mapbox.com/api/search/geocoding/" target="_blank">Mapbox Geocoding API</a></li>
+                <li><a href="https://python-visualization.github.io/folium/" target="_blank">Folium Documentation</a></li>
+                <li><a href="hometown_locations.csv" download>Download hometown_locations.csv</a></li>
+                <li><a href="hometown_map.py" download>Download hometown_map.py</a></li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Springer Tebeau | TCU Digital Culture & Data Analytics</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="css/styles.css" type="text/javascript"></script>
+</body>
+</html>
