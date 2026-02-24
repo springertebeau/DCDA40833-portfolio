@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hometown Map - Setup Required</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            max-width: 600px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        .icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        .steps {
+            text-align: left;
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+        .steps h3 {
+            color: #667eea;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        .steps ol {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .steps li {
+            color: #444;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+        code {
+            background: #fff;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #667eea;
+            border: 1px solid #e0e0e0;
+        }
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 4px;
+            text-align: left;
+        }
+        .note strong {
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">🗺️</div>
+        <h1>Interactive Map Not Yet Generated</h1>
+        <p>Your hometown map will appear here once you complete the setup steps below.</p>
+        
+        <div class="steps">
+            <h3>Setup Required:</h3>
+            <ol>
+                <li>Create a custom basemap in <strong>Mapbox Studio</strong></li>
+                <li>Get your Mapbox <strong>Access Token</strong> and <strong>Style URL</strong></li>
+                <li>Update <code>hometown_map.py</code> with your credentials (lines 20 and 24)</li>
+                <li>Customize <code>hometown_locations.csv</code> with your hometown locations</li>
+                <li>Install required libraries:
+                    <br><code>pip install folium pandas requests</code>
+                </li>
+                <li>Run the Python script:
+                    <br><code>python hometown_map.py</code>
+                </li>
+                <li>This file will be automatically replaced with your interactive map!</li>
+            </ol>
+        </div>
+        
+        <div class="note">
+            <strong>📖 Detailed Instructions:</strong> See <code>LAB06_README.md</code> for complete step-by-step guidance.
+        </div>
+    </div>
+</body>
+</html>
