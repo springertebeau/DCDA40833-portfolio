@@ -53,43 +53,10 @@
             <p>The dark mode feature works through three main components:</p>
             
             <h4>CSS Variables</h4>
-            <p>I asked AI to create a dark mode color palette that maintains good contrast and keeps my pink theme. The code uses CSS custom properties that define colors for the entire site:</p>
-            
-            <pre><code>/* Light mode colors in :root */
-:root {
-    --text-color: #333;
-    --bg-color: #f4f4f4;
-    --card-bg: #ffffff;
-}
-
-/* Dark mode overrides */
-body.dark-mode {
-    --text-color: #e5e5e5;
-    --bg-color: #1a1a1a;
-    --card-bg: #2d2d2d;
-}</code></pre>
-
-            <p>When the <code>dark-mode</code> class is added to the body element, all the color variables get new values and the entire site changes instantly.</p>
+            <p>I asked AI to create a dark mode color palette that maintains good contrast and keeps my pink theme. The code uses CSS custom properties that define colors for the entire site. When the <code>dark-mode</code> class is added to the body element, all the color variables get new values and the entire site changes instantly.</p>
 
             <h4>JavaScript Functionality</h4>
-            <p>The JavaScript handles three things:</p>
-            <ol>
-                <li><strong>Checking saved preference:</strong> When the page loads, it checks <code>localStorage</code> to see if the user previously enabled dark mode</li>
-                <li><strong>Toggling the class:</strong> When clicked, it adds or removes the <code>dark-mode</code> class from the body</li>
-                <li><strong>Saving preference:</strong> It stores the choice in <code>localStorage</code> so it persists between visits</li>
-            </ol>
-
-            <pre><code>// Check if dark mode was previously enabled
-if (localStorage.getItem('darkMode') === 'enabled') {
-    body.classList.add('dark-mode');
-    icon.textContent = '☀️';
-}
-
-// Toggle on click and save preference
-darkModeToggle.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
-    // Update icon and save to localStorage...
-});</code></pre>
+            <p>The JavaScript handles three things: checking saved preference (when the page loads, it checks <code>localStorage</code> to see if the user previously enabled dark mode), toggling the class (when clicked, it adds or removes the <code>dark-mode</code> class from the body), and saving preference (it stores the choice in <code>localStorage</code> so it persists between visits).</p>
 
             <h3>Modifications</h3>
             <ul>
