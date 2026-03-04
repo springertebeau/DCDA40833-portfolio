@@ -3,108 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hometown Map - Setup Required</title>
+    <title>Fort Worth Hometown Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         body {
+            margin: 0;
+            padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 20px;
         }
-        .container {
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            max-width: 600px;
-            text-align: center;
+        #map {
+            width: 100%;
+            height: 100vh;
         }
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 28px;
+        .custom-popup {
+            max-width: 300px;
         }
-        .icon {
-            font-size: 64px;
-            margin-bottom: 20px;
-        }
-        p {
-            color: #666;
-            line-height: 1.8;
-            margin-bottom: 15px;
-        }
-        .steps {
-            text-align: left;
-            background: #f8f9fa;
-            padding: 25px;
+        .popup-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
             border-radius: 8px;
-            margin: 25px 0;
-        }
-        .steps h3 {
-            color: #667eea;
-            margin-top: 0;
-            margin-bottom: 15px;
-        }
-        .steps ol {
-            margin: 0;
-            padding-left: 20px;
-        }
-        .steps li {
-            color: #444;
             margin-bottom: 12px;
+        }
+        .popup-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+            color: #2c3e50;
+        }
+        .popup-type {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: white;
+        }
+        .popup-description {
+            font-size: 14px;
             line-height: 1.6;
+            color: #555;
+            margin-top: 10px;
         }
-        code {
-            background: #fff;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-            color: #667eea;
-            border: 1px solid #e0e0e0;
+        .popup-address {
+            font-size: 12px;
+            color: #777;
+            margin-top: 8px;
+            font-style: italic;
         }
-        .note {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
+        .legend {
+            background: white;
             padding: 15px;
-            margin-top: 20px;
-            border-radius: 4px;
-            text-align: left;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            line-height: 24px;
         }
-        .note strong {
-            color: #856404;
+        .legend h4 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            color: #2c3e50;
+        }
+        .legend-item {
+            margin: 6px 0;
+            font-size: 13px;
+        }
+        .legend-color {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            margin-right: 8px;
+            vertical-align: middle;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="icon">🗺️</div>
-        <h1>Interactive Map Not Yet Generated</h1>
-        <p>Your hometown map will appear here once you complete the setup steps below.</p>
-        
-        <div class="steps">
-            <h3>Setup Required:</h3>
-            <ol>
-                <li>Create a custom basemap in <strong>Mapbox Studio</strong></li>
-                <li>Get your Mapbox <strong>Access Token</strong> and <strong>Style URL</strong></li>
-                <li>Update <code>hometown_map.py</code> with your credentials (lines 20 and 24)</li>
-                <li>Customize <code>hometown_locations.csv</code> with your hometown locations</li>
-                <li>Install required libraries:
-                    <br><code>pip install folium pandas requests</code>
-                </li>
-                <li>Run the Python script:
-                    <br><code>python hometown_map.py</code>
-                </li>
-                <li>This file will be automatically replaced with your interactive map!</li>
-            </ol>
-        </div>
-        
-        <div class="note">
-            <strong>📖 Detailed Instructions:</strong> See <code>LAB06_README.md</code> for complete step-by-step guidance.
-        </div>
-    </div>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map centered on Fort Worth, TX
+        const map = L.map('map').setView([32.7555, -97.3308], 11);
+
+        // Add OpenStreetMap tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 19
+        }).addTo(map);
+
+        // Color scheme for different location types
+        const typeColors = {
+            'Restaurant': '#e74c3c',
+            'Park': '#27ae60',
+            'Cultural': '#9b59b6',
+            'Historical': '#e67e22',
+            'Education': '#3498db',
+            'Recreation': '#16a085',
+            'Shopping': '#e91e63',
+            'Default': '#95a5a6'
+        };
+
+        // Hometown locations data
+        const locations = [
+            {
+                name: "Central Library",
+                address: "500 W 7th St, Fort Worth, TX 76102",
+                type: "Cultural",
+                description: "This beautiful library downtown is one of my favorite places to study and explore. The architecture is stunning and it has an amazing collection of resources.",
+                image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800",
+                lat: 32.7524,
+                lng: -97.3344
+            },
+            {
+                name: "Sundance Square",
+                address: "Sundance Square, Fort Worth, TX 76102",
+                type: "Recreation",
+                description: "The heart of downtown Fort Worth with great restaurants, shops, and entertainment. Perfect place to spend an afternoon or evening.",
+                image: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=800",
+                lat: 32.7518,
+                lng: -97.3301
+            },
+            {
+                name: "Fort Worth Botanic Garden",
+                address: "3220 Botanic Garden Blvd, Fort Worth, TX 76107",
+                type: "Park",
+                description: "One of the most peaceful places in Fort Worth. The Japanese Garden is absolutely stunning and perfect for reflection and photography.",
+                image: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800",
+                lat: 32.7360,
+                lng: -97.3626
+            },
+            {
+                name: "Joe T Garcia's",
+                address: "2201 N Commerce St, Fort Worth, TX 76106",
+                type: "Restaurant",
+                description: "Family-owned Mexican restaurant that's been a Fort Worth institution since 1935. The outdoor patio is perfect for warm evenings and the atmosphere can't be beat.",
+                image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800",
+                lat: 32.7814,
+                lng: -97.3458
+            },
+            {
+                name: "Fort Worth Water Gardens",
+                address: "1502 Commerce St, Fort Worth, TX 76102",
+                type: "Park",
+                description: "An architectural masterpiece and incredible urban park. The active pool with cascading water is mesmerizing and a great place to cool off in summer.",
+                image: "https://images.unsplash.com/photo-1544306094-e2dcf9479da3?w=800",
+                lat: 32.7473,
+                lng: -97.3305
+            },
+            {
+                name: "Kimbell Art Museum",
+                address: "3333 Camp Bowie Blvd, Fort Worth, TX 76107",
+                type: "Cultural",
+                description: "World-class art museum with stunning architecture by Louis Kahn. Free admission to the permanent collection makes art accessible to everyone.",
+                image: "https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=800",
+                lat: 32.7482,
+                lng: -97.3615
+            },
+            {
+                name: "Trinity Park",
+                address: "2401 University Dr, Fort Worth, TX 76107",
+                type: "Recreation",
+                description: "My favorite place for running and outdoor activities. Great trails along the Trinity River and beautiful views of downtown.",
+                image: "https://images.unsplash.com/photo-1571863533956-01c88e79957e?w=800",
+                lat: 32.7417,
+                lng: -97.3495
+            },
+            {
+                name: "Modern Art Museum",
+                address: "3200 Darnell St, Fort Worth, TX 76107",
+                type: "Cultural",
+                description: "The Modern is an incredible contemporary art museum with a reflecting pool that makes for amazing photos. The exhibitions are always thought-provoking.",
+                image: "https://images.unsplash.com/photo-1567690187548-f07b1c9c4c6c?w=800",
+                lat: 32.7465,
+                lng: -97.3650
+            },
+            {
+                name: "Fort Worth Stockyards",
+                address: "2501 Rodeo Plaza, Fort Worth, TX 76164",
+                type: "Historical",
+                description: "Historic district that celebrates Fort Worth's cattle ranching heritage. The twice-daily cattle drive is a unique experience you can't find anywhere else.",
+                image: "https://images.unsplash.com/photo-1600298881974-6be191ceeda1?w=800",
+                lat: 32.7896,
+                lng: -97.3493
+            },
+            {
+                name: "TCU Campus",
+                address: "2800 S University Dr, Fort Worth, TX 76129",
+                type: "Education",
+                description: "The beautiful tree-lined campus where I'm studying. The mix of historic and modern buildings creates a perfect learning environment.",
+                image: "https://images.unsplash.com/photo-1562774053-701939374585?w=800",
+                lat: 32.7098,
+                lng: -97.3637
+            },
+            {
+                name: "Magnolia Avenue",
+                address: "Magnolia Ave, Fort Worth, TX 76104",
+                type: "Recreation",
+                description: "Hip neighborhood with locally-owned restaurants, coffee shops, and boutiques. The creative energy here represents Fort Worth's evolving culture.",
+                image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800",
+                lat: 32.7305,
+                lng: -97.3207
+            },
+            {
+                name: "Fort Worth Zoo",
+                address: "1989 Colonial Pkwy, Fort Worth, TX 76110",
+                type: "Recreation",
+                description: "One of the top zoos in the nation with incredible exhibits. The Museum of Living Art (MOLA) reptile house is a personal favorite.",
+                image: "https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=800",
+                lat: 32.7231,
+                lng: -97.3533
+            }
+        ];
+
+        // Create custom icon function
+        function createCustomIcon(color) {
+            return L.divIcon({
+                className: 'custom-marker',
+                html: `<div style="background-color: ${color}; width: 24px; height: 24px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 6px rgba(0,0,0,0.3);"></div>`,
+                iconSize: [24, 24],
+                iconAnchor: [12, 12],
+                popupAnchor: [0, -12]
+            });
+        }
+
+        // Add markers for each location
+        locations.forEach(location => {
+            const color = typeColors[location.type] || typeColors['Default'];
+            
+            const popupContent = `
+                <div class="custom-popup">
+                    <img src="${location.image}" alt="${location.name}" class="popup-image" onerror="this.style.display='none'">
+                    <h3 class="popup-title">${location.name}</h3>
+                    <span class="popup-type" style="background-color: ${color}">${location.type}</span>
+                    <div class="popup-description">${location.description}</div>
+                    <div class="popup-address">📍 ${location.address}</div>
+                </div>
+            `;
+
+            L.marker([location.lat, location.lng], { 
+                icon: createCustomIcon(color)
+            })
+            .bindPopup(popupContent, { maxWidth: 300 })
+            .addTo(map);
+        });
+
+        // Add legend
+        const legend = L.control({ position: 'bottomright' });
+
+        legend.onAdd = function(map) {
+            const div = L.DomUtil.create('div', 'legend');
+            div.innerHTML = '<h4>Location Types</h4>';
+            
+            const types = [...new Set(locations.map(loc => loc.type))].sort();
+            
+            types.forEach(type => {
+                const color = typeColors[type] || typeColors['Default'];
+                div.innerHTML += `
+                    <div class="legend-item">
+                        <span class="legend-color" style="background-color: ${color}"></span>
+                        ${type}
+                    </div>
+                `;
+            });
+            
+            return div;
+        };
+
+        legend.addTo(map);
+
+        // Fit map bounds to show all markers
+        const bounds = L.latLngBounds(locations.map(loc => [loc.lat, loc.lng]));
+        map.fitBounds(bounds, { padding: [50, 50] });
+    </script>
 </body>
 </html>

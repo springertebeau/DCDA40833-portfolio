@@ -34,27 +34,17 @@
     <!-- Header -->
     <header>
         <div class="header-content">
-            <h1>Lab 6: Custom Basemap Design & Interactive Hometown Map</h1>
-            <p>Python Mapping with Folium & Mapbox Studio</p>
+            <h1>Lab 6: Interactive Mapping</h1>
         </div>
     </header>
 
     <main>
-        <!-- Overview Section -->
-        <section id="overview">
-            <h2>Overview</h2>
-            <p>This lab combines interactive web mapping with custom cartographic design. I created a personalized, art-inspired basemap using Mapbox Studio, built a dataset of meaningful locations from my hometown, and integrated both into an interactive web map using Python.</p>
-            
-            <p>The lab consists of three main components:</p>
-            <ul>
-                <li><strong>Part 1:</strong> Custom Mapbox Basemap Design</li>
-                <li><strong>Part 2:</strong> Hometown Locations Dataset (CSV)</li>
-                <li><strong>Part 3:</strong> Python-Generated Interactive Map</li>
-            </ul>
+        <section>
+            <h2>Introduction</h2>
+            <p>This lab combines interactive web mapping with custom cartographic design. I created a personalized basemap, built a dataset of meaningful locations from my hometown, and integrated both into an interactive web map. The lab consists of three main parts: custom basemap design, hometown locations dataset, and Python-generated interactive map.</p>
         </section>
 
-        <!-- Part 1: Custom Basemap Section -->
-        <section id="part1">
+        <section>
             <h2>Part 1: Custom Mapbox Basemap Design</h2>
             
             <h3>Design Inspiration</h3>
@@ -93,8 +83,7 @@
             </ul>
         </section>
 
-        <!-- Part 2: Dataset Section -->
-        <section id="part2">
+        <section>
             <h2>Part 2: Hometown Locations Dataset</h2>
             
             <h3>Location Selection</h3>
@@ -111,15 +100,12 @@
                 <li><strong>Image_URL:</strong> URL to an image of the location</li>
             </ul>
 
-            <div class="framework-callout">
-                <h3>📊 Sample Data</h3>
-                <pre><code>Name,Address,Type,Description,Image_URL
+            <h3>Sample Data</h3>
+            <pre><code>Name,Address,Type,Description,Image_URL
 "Example Location","123 Main St, City, State ZIP",Restaurant,"This is why this place is meaningful...",https://example.com/image.jpg</code></pre>
-            </div>
         </section>
 
-        <!-- Part 3: Interactive Map Section -->
-        <section id="part3">
+        <section>
             <h2>Part 3: Python Interactive Map</h2>
             
             <h3>Technical Implementation</h3>
@@ -140,11 +126,7 @@
             </ul>
 
             <h3>Final Interactive Map</h3>
-            <div class="framework-callout">
-                <h3>🗺️ Explore My Hometown</h3>
-                <p>Below is the interactive map showing my personally curated hometown locations. Click on any marker to see details, descriptions, and images.</p>
-                <p><strong>Note:</strong> If you see a placeholder message, you need to run <code>hometown_map.py</code> first to generate the map.</p>
-            </div>
+            <p>Below is the interactive map showing my personally curated hometown locations. Click on any marker to see details, descriptions, and images.</p>
 
             <div class="map-container" style="margin-top: 20px; margin-bottom: 20px;">
                 <iframe src="hometown_map.html" width="100%" height="600px" style="border: 1px solid #ddd; border-radius: 8px;"></iframe>
@@ -165,14 +147,10 @@
                 <li>Save the map as an HTML file</li>
             </ol>
 
-            <div class="framework-callout">
-                <h3>💻 View the Code</h3>
-                <p>The complete Python script is available in <code>hometown_map.py</code>.</p>
-            </div>
+            <p>The complete Python script is available in <code>hometown_map.py</code>.</p>
         </section>
 
-        <!-- Reflection Section -->
-        <section id="reflection">
+        <section>
             <h2>Written Reflection</h2>
             
             <h3>Design Inspiration</h3>
@@ -191,8 +169,7 @@
             </p>
         </section>
 
-        <!-- Self-Assessment Section -->
-        <section id="self-assessment">
+        <section>
             <h2>Self-Assessment</h2>
             
             <h3>Design Coherence</h3>
@@ -221,25 +198,57 @@
             </p>
         </section>
 
-        <!-- Resources Section -->
-        <section id="resources">
-            <h2>Resources & Links</h2>
-            <ul>
-                <li><a href="https://docs.mapbox.com/studio-manual/" target="_blank">Mapbox Studio Manual</a></li>
-                <li><a href="https://docs.mapbox.com/api/search/geocoding/" target="_blank">Mapbox Geocoding API</a></li>
-                <li><a href="https://python-visualization.github.io/folium/" target="_blank">Folium Documentation</a></li>
-                <li><a href="hometown_locations.csv" download>Download hometown_locations.csv</a></li>
-                <li><a href="hometown_map.py" download>Download hometown_map.py</a></li>
-            </ul>
-        </section>
     </main>
 
-    <!-- Footer -->
     <footer>
-        <p>&copy; 2026 Springer Tebeau | TCU Digital Culture & Data Analytics</p>
+        <p>&copy; 2026 Springer Tebeau</p>
     </footer>
 
-    <!-- JavaScript -->
-    <script src="css/styles.css" type="text/javascript"></script>
+    <script>
+        // Hamburger Menu
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+            hamburger.setAttribute('aria-expanded', !isExpanded);
+        });
+
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // Dark Mode Toggle
+        const darkModeToggle = document.querySelector('.dark-mode-toggle');
+        const body = document.body;
+        
+        if (darkModeToggle) {
+            const icon = darkModeToggle.querySelector('.icon');
+
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                body.classList.add('dark-mode');
+                if (icon) icon.textContent = '☀️';
+            }
+
+            darkModeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                
+                if (body.classList.contains('dark-mode')) {
+                    if (icon) icon.textContent = '☀️';
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    if (icon) icon.textContent = '🌙';
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+            });
+        }
+    </script>
 </body>
 </html>
