@@ -33,6 +33,13 @@
 
 	<main>
 		<section>
+			<h2>Lab Overview</h2>
+			<p><strong>Lab Instructions:</strong> This lab focused on using Tableau Public to perform exploratory data analysis and visualization. The assignment required choosing a dataset from a topic I'm familiar with, creating visualizations to identify patterns and outliers, and writing a 500+ word reflection addressing six key areas: data preparation challenges, design choices for metrics and dimensions, expected patterns based on prior knowledge, surprising deviations or outliers, questions for further investigation, and an evaluation of Tableau as a visualization tool compared to other options.</p>
+			<p><strong>What I'm Doing:</strong> In this lab, I analyzed chocolate sales data using Tableau Public. I created a bar chart showing sales by product and a geographic map visualizing sales by country. Through this process, I explored how different chocolate varieties performed, identified surprising patterns (like the strong sales of very dark chocolate), and learned to work with Tableau's drag-and-drop interface while troubleshooting data upload issues and transitioning between Desktop and web versions.</p>
+			<p><em>Note: My written reflection addressing all required prompts can be found at the bottom of this page.</em></p>
+		</section>
+
+		<section>
 			<h2>Introduction</h2>
 			<p>
 				I originally started this project in Tableau Public Desktop using a Kaggle dataset, but encountered problems getting the charts to display as I expected. After troubleshooting (including help from ChatGPT) I switched to Tableau Public in the web browser, uploaded a different dataset, and was able to build the visuals successfully.
@@ -120,51 +127,78 @@
 			</p>
 		</section>
 	<!-- Hamburger Menu Script -->
+	<!-- This script handles both the mobile navigation menu and dark mode toggle feature -->
 	<script>
-		// Get the hamburger button and nav menu
+		/* ========================================
+		   HAMBURGER MENU FUNCTIONALITY
+		   Goal: Make the navigation responsive for mobile devices
+		   ======================================== */
+		
+		// Select the hamburger button (the 3-line icon) and the navigation menu
+		// querySelector finds the first element that matches the CSS selector
 		const hamburger = document.querySelector('.hamburger');
 		const navMenu = document.querySelector('.nav-menu');
 
-		// Toggle menu when hamburger is clicked
+		// Add click event listener to the hamburger button
+		// When clicked, this toggles the menu open/closed on mobile screens
 		hamburger.addEventListener('click', () => {
+			// Toggle 'active' class on both hamburger and menu
+			// This triggers CSS animations defined in styles.css to show/hide the menu
 			hamburger.classList.toggle('active');
 			navMenu.classList.toggle('active');
 			
-			// Update aria-expanded for accessibility
+			// Update aria-expanded attribute for screen readers (accessibility)
+			// This helps users with screen readers know if the menu is open or closed
 			const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
 			hamburger.setAttribute('aria-expanded', !isExpanded);
 		});
 
-		// Close menu when a nav link is clicked
+		// Close the mobile menu when a navigation link is clicked
+		// This improves UX by hiding the menu after the user selects their destination
 		document.querySelectorAll('.nav-menu a').forEach(link => {
 			link.addEventListener('click', () => {
+				// Remove 'active' class to close the menu
 				hamburger.classList.remove('active');
 				navMenu.classList.remove('active');
+				// Reset aria-expanded to false for accessibility
 				hamburger.setAttribute('aria-expanded', 'false');
 			});
 		});
 
-		// Dark Mode Toggle
+		/* ========================================
+		   DARK MODE TOGGLE FUNCTIONALITY
+		   Goal: Allow users to switch between light and dark themes
+		   ======================================== */
+		
+		// Select the dark mode toggle button in the navigation bar
 		const darkModeToggle = document.querySelector('.dark-mode-toggle');
 		
+		// Only run dark mode code if the toggle button exists on the page
 		if (darkModeToggle) {
 			const body = document.body;
 			const icon = darkModeToggle.querySelector('.icon');
 
+			// Check localStorage to see if user previously enabled dark mode
+			// localStorage saves data in the browser so preferences persist between visits
 			if (localStorage.getItem('darkMode') === 'enabled') {
+				// If dark mode was enabled before, turn it on again
 				body.classList.add('dark-mode');
-				icon.textContent = '☀️';
+				icon.textContent = '☀️';  // Show sun icon when in dark mode
 			}
 
+			// Add click event listener to toggle between light and dark modes
 			darkModeToggle.addEventListener('click', () => {
+				// Toggle the 'dark-mode' class on the body element
+				// CSS variables in styles.css change colors when this class is present
 				body.classList.toggle('dark-mode');
 				
+				// Update the icon and save preference to localStorage
 				if (body.classList.contains('dark-mode')) {
-					icon.textContent = '☀️';
-					localStorage.setItem('darkMode', 'enabled');
+					icon.textContent = '☀️';  // Sun icon = dark mode is ON
+					localStorage.setItem('darkMode', 'enabled');  // Save choice
 				} else {
-					icon.textContent = '🌙';
-					localStorage.setItem('darkMode', 'disabled');
+					icon.textContent = '🌙';  // Moon icon = light mode is ON
+					localStorage.setItem('darkMode', 'disabled');  // Save choice
 				}
 			});
 		}

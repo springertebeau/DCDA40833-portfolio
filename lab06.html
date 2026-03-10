@@ -40,6 +40,13 @@
 
     <main>
         <section>
+            <h2>Lab Overview</h2>
+            <p><strong>Lab Instructions:</strong> This lab combined interactive web mapping with custom cartographic design through three main components: (1) designing a custom basemap in Mapbox Studio inspired by art, film, or design (with at least 12 styled layers functioning well across multiple zoom levels), (2) creating a CSV dataset of at least 10 meaningful hometown locations with descriptions and images, and (3) using Python with Folium to geocode addresses via the Mapbox API and generate an interactive map integrating the custom basemap with color-coded markers and pop-ups. The assignment required a 250-500 word reflection addressing design inspiration, cartographic challenges at multiple scales, and technical implementation.</p>
+            <p><strong>What I'm Doing:</strong> In this lab, I created a personalized interactive map of my hometown combining custom cartographic design with Python coding. I designed a custom basemap in Mapbox Studio, compiled a dataset of locations that are personally meaningful to me (including restaurants, parks, cultural sites, and landmarks), and wrote a Python script to geocode these addresses and generate an interactive web map. The final product integrates my custom visual design with functional interactivity, allowing visitors to explore the places I would show a friend visiting my hometown.</p>
+            <p><em>Note: My written reflection and self-assessment can be found at the bottom of this page.</em></p>
+        </section>
+
+        <section>
             <h2>Introduction</h2>
             <p>This lab combines interactive web mapping with custom cartographic design. I created a personalized basemap, built a dataset of meaningful locations from my hometown, and integrated both into an interactive web map. The lab consists of three main parts: custom basemap design, hometown locations dataset, and Python-generated interactive map.</p>
         </section>
@@ -170,48 +177,78 @@
         <p>&copy; 2026 Springer Tebeau</p>
     </footer>
 
+    <!-- This script handles both the mobile navigation menu and dark mode toggle feature -->
     <script>
-        // Hamburger Menu
+        /* ========================================
+           HAMBURGER MENU FUNCTIONALITY
+           Goal: Make the navigation responsive for mobile devices
+           ======================================== */
+        
+        // Select the hamburger button (the 3-line icon) and the navigation menu
+        // querySelector finds the first element that matches the CSS selector
         const hamburger = document.querySelector('.hamburger');
         const navMenu = document.querySelector('.nav-menu');
 
+        // Add click event listener to the hamburger button
+        // When clicked, this toggles the menu open/closed on mobile screens
         hamburger.addEventListener('click', () => {
+            // Toggle 'active' class on both hamburger and menu
+            // This triggers CSS animations defined in styles.css to show/hide the menu
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
             
+            // Update aria-expanded attribute for screen readers (accessibility)
+            // This helps users with screen readers know if the menu is open or closed
             const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
             hamburger.setAttribute('aria-expanded', !isExpanded);
         });
 
+        // Close the mobile menu when a navigation link is clicked
+        // This improves UX by hiding the menu after the user selects their destination
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', () => {
+                // Remove 'active' class to close the menu
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
+                // Reset aria-expanded to false for accessibility
                 hamburger.setAttribute('aria-expanded', 'false');
             });
         });
 
-        // Dark Mode Toggle
+        /* ========================================
+           DARK MODE TOGGLE FUNCTIONALITY
+           Goal: Allow users to switch between light and dark themes
+           ======================================== */
+        
+        // Select the dark mode toggle button in the navigation bar
         const darkModeToggle = document.querySelector('.dark-mode-toggle');
         const body = document.body;
         
+        // Only run dark mode code if the toggle button exists on the page
         if (darkModeToggle) {
             const icon = darkModeToggle.querySelector('.icon');
 
+            // Check localStorage to see if user previously enabled dark mode
+            // localStorage saves data in the browser so preferences persist between visits
             if (localStorage.getItem('darkMode') === 'enabled') {
+                // If dark mode was enabled before, turn it on again
                 body.classList.add('dark-mode');
-                if (icon) icon.textContent = '☀️';
+                if (icon) icon.textContent = '☀️';  // Show sun icon when in dark mode
             }
 
+            // Add click event listener to toggle between light and dark modes
             darkModeToggle.addEventListener('click', () => {
+                // Toggle the 'dark-mode' class on the body element
+                // CSS variables in styles.css change colors when this class is present
                 body.classList.toggle('dark-mode');
                 
+                // Update the icon and save preference to localStorage
                 if (body.classList.contains('dark-mode')) {
-                    if (icon) icon.textContent = '☀️';
-                    localStorage.setItem('darkMode', 'enabled');
+                    if (icon) icon.textContent = '☀️';  // Sun icon = dark mode is ON
+                    localStorage.setItem('darkMode', 'enabled');  // Save choice
                 } else {
-                    if (icon) icon.textContent = '🌙';
-                    localStorage.setItem('darkMode', 'disabled');
+                    if (icon) icon.textContent = '🌙';  // Moon icon = light mode is ON
+                    localStorage.setItem('darkMode', 'disabled');  // Save choice
                 }
             });
         }

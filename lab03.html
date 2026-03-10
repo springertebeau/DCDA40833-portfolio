@@ -33,6 +33,13 @@
 
     <main>
         <section>
+            <h2>Lab Overview</h2>
+            <p><strong>Lab Instructions:</strong> This lab applied Edward Tufte's principles to critically evaluate real-world data visualizations. The assignment required selecting an infographic from curated galleries (Beautiful News, Feeling Data Studio, or Data to Art), analyzing it through the lens of information "resolution" (how comprehensive and complete the graphic is), and examining at least two additional concerns such as effects without causes, cherry-picking, overreaching, or rage to conclude. The critique needed to be at least 500 words and demonstrate close reading of both the visualization and any supporting source material.</p>
+            <p><strong>What I'm Doing:</strong> In this lab, I selected and critiqued the "Giant Pandas Are Rebounding" infographic from Beautiful News. I analyzed how the visualization presents data about panda population recovery, examining what information is included versus what's missing from the supporting article. Using Tufte's framework, I evaluated the graphic's information resolution and identified issues with presenting effects without causes and overreaching in its conclusions about conservation success.</p>
+            <p><em>Note: My written reflection and analysis can be found at the bottom of this page.</em></p>
+        </section>
+
+        <section>
             <h2>Visualization</h2>
             <figure>
                 <img src="images/880-giant-pandas-rebounding.svg" alt="Infographic showing the rebound of giant panda populations">
@@ -69,58 +76,88 @@
                Overall, the “Giant Pandas Are Rebounding” infographic does a good job telling a positive story, but it is limited when it comes to deeper analysis. Using Tufte’s ideas, the graphic has low information resolution and focuses more on the outcome than the causes or uncertainties behind it. The visualization works well as an introduction to the topic, but the supporting article is needed to fully understand the challenges and efforts involved in panda conservation.
             </p>
         </section>
-    </main>
+        <section>
+            <h2>Written Reflection</h2>
+            <p>In Lab 3, I focused more on working with data and understanding how datasets can be analyzed and interpreted. This lab helped me see how raw data can be organized and explored in order to identify patterns or trends. I also learned that preparing and cleaning data is an important step before analysis can begin. During this process, I gained experience thinking more critically about what the data represents and how it can be communicated clearly. By the end of the lab, I had a better understanding of how data analytics can be used to turn information into insights and how these insights can be presented in a way that others can understand.</p>
+        </section>    </main>
 
     <footer>
         <p>© 2026 Springer Tebeau</p>
     </footer>
 
     <!-- Hamburger Menu Script -->
+    <!-- This script handles both the mobile navigation menu and dark mode toggle feature -->
     <script>
-        // Get the hamburger button and nav menu
+        /* ========================================
+           HAMBURGER MENU FUNCTIONALITY
+           Goal: Make the navigation responsive for mobile devices
+           ======================================== */
+        
+        // Select the hamburger button (the 3-line icon) and the navigation menu
+        // querySelector finds the first element that matches the CSS selector
         const hamburger = document.querySelector('.hamburger');
         const navMenu = document.querySelector('.nav-menu');
 
-        // Toggle menu when hamburger is clicked
+        // Add click event listener to the hamburger button
+        // When clicked, this toggles the menu open/closed on mobile screens
         hamburger.addEventListener('click', () => {
+            // Toggle 'active' class on both hamburger and menu
+            // This triggers CSS animations defined in styles.css to show/hide the menu
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
             
-            // Update aria-expanded for accessibility
+            // Update aria-expanded attribute for screen readers (accessibility)
+            // This helps users with screen readers know if the menu is open or closed
             const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
             hamburger.setAttribute('aria-expanded', !isExpanded);
         });
 
-        // Close menu when a nav link is clicked
+        // Close the mobile menu when a navigation link is clicked
+        // This improves UX by hiding the menu after the user selects their destination
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', () => {
+                // Remove 'active' class to close the menu
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
+                // Reset aria-expanded to false for accessibility
                 hamburger.setAttribute('aria-expanded', 'false');
             });
         });
 
-        // Dark Mode Toggle
+        /* ========================================
+           DARK MODE TOGGLE FUNCTIONALITY
+           Goal: Allow users to switch between light and dark themes
+           ======================================== */
+        
+        // Select the dark mode toggle button in the navigation bar
         const darkModeToggle = document.querySelector('.dark-mode-toggle');
         
+        // Only run dark mode code if the toggle button exists on the page
         if (darkModeToggle) {
             const body = document.body;
             const icon = darkModeToggle.querySelector('.icon');
 
+            // Check localStorage to see if user previously enabled dark mode
+            // localStorage saves data in the browser so preferences persist between visits
             if (localStorage.getItem('darkMode') === 'enabled') {
+                // If dark mode was enabled before, turn it on again
                 body.classList.add('dark-mode');
-                icon.textContent = '☀️';
+                icon.textContent = '☀️';  // Show sun icon when in dark mode
             }
 
+            // Add click event listener to toggle between light and dark modes
             darkModeToggle.addEventListener('click', () => {
+                // Toggle the 'dark-mode' class on the body element
+                // CSS variables in styles.css change colors when this class is present
                 body.classList.toggle('dark-mode');
                 
+                // Update the icon and save preference to localStorage
                 if (body.classList.contains('dark-mode')) {
-                    icon.textContent = '☀️';
-                    localStorage.setItem('darkMode', 'enabled');
+                    icon.textContent = '☀️';  // Sun icon = dark mode is ON
+                    localStorage.setItem('darkMode', 'enabled');  // Save choice
                 } else {
-                    icon.textContent = '🌙';
-                    localStorage.setItem('darkMode', 'disabled');
+                    icon.textContent = '🌙';  // Moon icon = light mode is ON
+                    localStorage.setItem('darkMode', 'disabled');  // Save choice
                 }
             });
         }

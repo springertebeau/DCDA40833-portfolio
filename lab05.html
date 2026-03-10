@@ -39,6 +39,13 @@
 
     <main>
         <section>
+            <h2>Lab Overview</h2>
+            <p><strong>Lab Instructions:</strong> This lab explored "vibe coding" - using AI as a coding collaborator to generate, understand, and modify code. The assignment required completing at least two experiments: adding a feature to my portfolio (like dark mode or animations), generating Python code for data tasks in Google Colab, or debugging with AI assistance. A key requirement was honestly commenting code using an "understanding spectrum" (from fully understood to black box) and writing a 400-600 word critical reflection addressing technical understanding, when AI is helpful vs. problematic, learning trade-offs, and personal guidelines for AI use in coding.</p>
+            <p><strong>What I'm Doing:</strong> In this lab, I completed two experiments: (1) adding a dark mode toggle to my portfolio using CSS and JavaScript, and (2) creating Python data visualizations in Google Colab analyzing student study habits and exam performance. For both experiments, I worked with AI-generated code, tested it thoroughly, made modifications to improve functionality and clarity, and documented my understanding level. This process helped me develop personal guidelines for when and how to use AI assistance while maintaining code literacy and responsibility.</p>
+            <p><em>Note: My critical reflection and personal AI coding guidelines can be found at the bottom of this page.</em></p>
+        </section>
+
+        <section>
             <h2>Introduction</h2>
             <p>This lab explores AI-assisted coding through two experiments: adding a dark mode toggle to my portfolio using CSS and JavaScript, and creating Python data visualizations in Google Colab. The key principle is that I must be able to read, explain, and modify any code I use, regardless of who or what wrote it.</p>
         </section>
@@ -143,50 +150,78 @@
     </footer>
 
     <!-- JavaScript -->
+    <!-- This script handles both the mobile navigation menu and dark mode toggle feature -->
     <script>
-        // Hamburger Menu
+        /* ========================================
+           HAMBURGER MENU FUNCTIONALITY
+           Goal: Make the navigation responsive for mobile devices
+           ======================================== */
+        
+        // Select the hamburger button (the 3-line icon) and the navigation menu
+        // querySelector finds the first element that matches the CSS selector
         const hamburger = document.querySelector('.hamburger');
         const navMenu = document.querySelector('.nav-menu');
 
+        // Add click event listener to the hamburger button
+        // When clicked, this toggles the menu open/closed on mobile screens
         hamburger.addEventListener('click', () => {
+            // Toggle 'active' class on both hamburger and menu
+            // This triggers CSS animations defined in styles.css to show/hide the menu
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
             
+            // Update aria-expanded attribute for screen readers (accessibility)
+            // This helps users with screen readers know if the menu is open or closed
             const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
             hamburger.setAttribute('aria-expanded', !isExpanded);
         });
 
+        // Close the mobile menu when a navigation link is clicked
+        // This improves UX by hiding the menu after the user selects their destination
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', () => {
+                // Remove 'active' class to close the menu
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
+                // Reset aria-expanded to false for accessibility
                 hamburger.setAttribute('aria-expanded', 'false');
             });
         });
 
-        // Dark Mode Toggle
+        /* ========================================
+           DARK MODE TOGGLE FUNCTIONALITY
+           Goal: Allow users to switch between light and dark themes
+           ======================================== */
+        
+        // Select the dark mode toggle button in the navigation bar
         const darkModeToggle = document.querySelector('.dark-mode-toggle');
         const body = document.body;
         
+        // Only run dark mode code if the toggle button exists on the page
         if (darkModeToggle) {
             const icon = darkModeToggle.querySelector('.icon');
 
-            // Check if dark mode was previously enabled
+            // Check localStorage to see if user previously enabled dark mode
+            // localStorage saves data in the browser so preferences persist between visits
             if (localStorage.getItem('darkMode') === 'enabled') {
+                // If dark mode was enabled before, turn it on again
                 body.classList.add('dark-mode');
-                if (icon) icon.textContent = '☀️';
+                if (icon) icon.textContent = '☀️';  // Show sun icon when in dark mode
             }
 
-            // Toggle dark mode on button click
+            // Add click event listener to toggle between light and dark modes
             darkModeToggle.addEventListener('click', () => {
+                // Toggle the 'dark-mode' class on the body element
+                // CSS variables in styles.css change colors when this class is present
                 body.classList.toggle('dark-mode');
                 
+                // Update the icon and save preference to localStorage
                 if (body.classList.contains('dark-mode')) {
-                    if (icon) icon.textContent = '☀️';
-                    localStorage.setItem('darkMode', 'enabled');
+                    if (icon) icon.textContent = '☀️';  // Sun icon = dark mode is ON
+                    localStorage.setItem('darkMode', 'enabled');  // Save choice
                 } else {
-                    if (icon) icon.textContent = '🌙';
-                    localStorage.setItem('darkMode', 'disabled');
+                    if (icon) icon.textContent = '🌙';  // Moon icon = light mode is ON
+                    localStorage.setItem('darkMode', 'disabled');  // Save choice
                 }
             });
         }

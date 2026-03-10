@@ -33,6 +33,13 @@
 
     <main>
         <section>
+            <h2>Lab Overview</h2>
+            <p><strong>Lab Instructions:</strong> This lab focused on exploring and critically evaluating AI tools relevant to DCDA work. The assignment required selecting at least two AI tools from different categories (text generation, image creation, writing assistance, etc.) and developing an evaluation framework based on four dimensions: Capabilities, Appropriate Use, Ethical Considerations, and Transparency. The goal was to build critical perspective on AI tools by testing their capabilities, pushing their limits, and documenting observations through a 500-750 word analysis.</p>
+            <p><strong>What I'm Doing:</strong> In this lab, I explored ChatGPT and Google Gemini to understand their strengths, limitations, and appropriate use cases. I tested each tool with various prompts, documented their responses, and critically evaluated their performance across different tasks. This hands-on exploration helped me develop a framework for assessing AI tools that I can apply as these technologies continue to evolve.</p>
+            <p><em>Note: My detailed reflections and self-assessment can be found at the bottom of this page.</em></p>
+        </section>
+
+        <section>
             <h2>Introduction</h2>
             <p>The first AI tool that I used for this lab was ChatGPT, which I use pretty much every day. Since I use this tool so much, I decided to ask it a few more personal questions. The first prompt I gave it was “Give me a short summary about myself from information Ive given you before”. It had a very good sense of of my majors and skills. For the most part it had pulled from my resume and previous course work. I would say the output it gave me was half true. The second prompt I gave it to go off of the last one was “What would you say my greatest strength is?” The output it gave me was “your ability to bridge strategy and execution”. I would not particularly say this about myself. It did a good job at pulling examples of why it thought this, but it did not really make sense as a whole to me. The second AI tool that I used for this lab was Google Gemini. I have never used this tool before so I was intrigued to try it. The promt that I gave this tool was “What are the latest TikTok trends?” It gave me a short overview and then gave me five different trends and explained what each trend was and the background on it. The second prompt I gave it was “Give me a short summary of that”. It gave me five bullet points each with a very short sentense.</p>
         </section>
@@ -82,6 +89,11 @@
             <h2>Broader Reflections</h2>
             <p>I use AI daily. Something that I already do to help with my school work is ask it to format things, make my emails sound better, write me outlines, etc. I think that is an appropriate use because it is not cheating and I am not asking it to do my work for me. I think using it for emails will also help and be an appropriate use in my professional career. I think AI tools will affect the skills taught in the DCDA program because AI can basically do most things we learn about like coding for example. I think creativity remains uniquely human in this program because AI does not have an out of the box perspective. When using a new AI tool, I think that it is necessary to research why it was made and what it can do differently from AI tools we already have.</p>
         </section>
+
+        <section>
+            <h2>Written Reflection</h2>
+            <p>In Lab 2, I began building the foundation of my portfolio website and learned the basics of structuring a webpage using HTML and CSS. This lab helped me understand how different elements of a website work together, including page layout, headings, text, and links. I also learned how to organize files and create a structure that makes a site easier to update as more content is added. One important part of this lab was learning to include comments in my code so that I could explain what different sections were doing. This helped me better understand my own work and made the code easier to read. Overall, Lab 2 introduced me to the core skills needed to create and manage a professional portfolio site.</p>
+        </section>
     </main>
 
     <footer>
@@ -89,51 +101,78 @@
     </footer>
 
     <!-- Hamburger Menu Script -->
+    <!-- This script handles both the mobile navigation menu and dark mode toggle feature -->
     <script>
-        // Get the hamburger button and nav menu
+        /* ========================================
+           HAMBURGER MENU FUNCTIONALITY
+           Goal: Make the navigation responsive for mobile devices
+           ======================================== */
+        
+        // Select the hamburger button (the 3-line icon) and the navigation menu
+        // querySelector finds the first element that matches the CSS selector
         const hamburger = document.querySelector('.hamburger');
         const navMenu = document.querySelector('.nav-menu');
 
-        // Toggle menu when hamburger is clicked
+        // Add click event listener to the hamburger button
+        // When clicked, this toggles the menu open/closed on mobile screens
         hamburger.addEventListener('click', () => {
+            // Toggle 'active' class on both hamburger and menu
+            // This triggers CSS animations defined in styles.css to show/hide the menu
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
             
-            // Update aria-expanded for accessibility
+            // Update aria-expanded attribute for screen readers (accessibility)
+            // This helps users with screen readers know if the menu is open or closed
             const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
             hamburger.setAttribute('aria-expanded', !isExpanded);
         });
 
-        // Close menu when a nav link is clicked
+        // Close the mobile menu when a navigation link is clicked
+        // This improves UX by hiding the menu after the user selects their destination
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', () => {
+                // Remove 'active' class to close the menu
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
+                // Reset aria-expanded to false for accessibility
                 hamburger.setAttribute('aria-expanded', 'false');
             });
         });
 
-        // Dark Mode Toggle
+        /* ========================================
+           DARK MODE TOGGLE FUNCTIONALITY
+           Goal: Allow users to switch between light and dark themes
+           ======================================== */
+        
+        // Select the dark mode toggle button in the navigation bar
         const darkModeToggle = document.querySelector('.dark-mode-toggle');
         
+        // Only run dark mode code if the toggle button exists on the page
         if (darkModeToggle) {
             const body = document.body;
             const icon = darkModeToggle.querySelector('.icon');
 
+            // Check localStorage to see if user previously enabled dark mode
+            // localStorage saves data in the browser so preferences persist between visits
             if (localStorage.getItem('darkMode') === 'enabled') {
+                // If dark mode was enabled before, turn it on again
                 body.classList.add('dark-mode');
-                icon.textContent = '☀️';
+                icon.textContent = '☀️';  // Show sun icon when in dark mode
             }
 
+            // Add click event listener to toggle between light and dark modes
             darkModeToggle.addEventListener('click', () => {
+                // Toggle the 'dark-mode' class on the body element
+                // CSS variables in styles.css change colors when this class is present
                 body.classList.toggle('dark-mode');
                 
+                // Update the icon and save preference to localStorage
                 if (body.classList.contains('dark-mode')) {
-                    icon.textContent = '☀️';
-                    localStorage.setItem('darkMode', 'enabled');
+                    icon.textContent = '☀️';  // Sun icon = dark mode is ON
+                    localStorage.setItem('darkMode', 'enabled');  // Save choice
                 } else {
-                    icon.textContent = '🌙';
-                    localStorage.setItem('darkMode', 'disabled');
+                    icon.textContent = '🌙';  // Moon icon = light mode is ON
+                    localStorage.setItem('darkMode', 'disabled');  // Save choice
                 }
             });
         }

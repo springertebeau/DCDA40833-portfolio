@@ -128,62 +128,89 @@
     </footer>
 
     <!-- Hamburger Menu Script -->
+    <!-- This script handles both the mobile navigation menu and dark mode toggle feature -->
     <script>
-        // Get the hamburger button and nav menu
+        /* ========================================
+           HAMBURGER MENU FUNCTIONALITY
+           Goal: Make the navigation responsive for mobile devices
+           ======================================== */
+        
+        // Select the hamburger button (the 3-line icon) and the navigation menu
+        // querySelector finds the first element that matches the CSS selector
         const hamburger = document.querySelector('.hamburger');
         const navMenu = document.querySelector('.nav-menu');
 
-        // Toggle menu when hamburger is clicked
+        // Add click event listener to the hamburger button
+        // When clicked, this toggles the menu open/closed on mobile screens
         hamburger.addEventListener('click', () => {
+            // Toggle 'active' class on both hamburger and menu
+            // This triggers CSS animations defined in styles.css to show/hide the menu
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
             
-            // Update aria-expanded for accessibility
+            // Update aria-expanded attribute for screen readers (accessibility)
+            // This helps users with screen readers know if the menu is open or closed
             const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
             hamburger.setAttribute('aria-expanded', !isExpanded);
         });
 
-        // Close menu when a nav link is clicked
+        // Close the mobile menu when a navigation link is clicked
+        // This improves UX by hiding the menu after the user selects their destination
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', () => {
+                // Remove 'active' class to close the menu
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
+                // Reset aria-expanded to false for accessibility
                 hamburger.setAttribute('aria-expanded', 'false');
             });
         });
 
-        // Dark Mode Toggle
-        // AI-Generated: I asked AI to create JavaScript that toggles dark mode and saves the preference
-        // Understanding: This code does several things:
-        // 1. Gets the toggle button element from the DOM using querySelector
-        // 2. Checks localStorage to see if user previously selected dark mode (persistence across page loads)
-        // 3. Adds a click event listener that toggles the 'dark-mode' class on the body element
-        // 4. Changes the icon between moon (🌙) and sun (☀️) depending on current mode
-        // 5. Saves the user's preference to localStorage so it persists when they return
-        // I understand how localStorage works - it's browser storage that persists data between sessions
+        /* ========================================
+           DARK MODE TOGGLE FUNCTIONALITY
+           Goal: Allow users to switch between light and dark themes
+           
+           AI-Generated: I asked AI to create JavaScript that toggles dark mode and saves the preference
+           
+           Understanding: This code accomplishes several things:
+           1. Gets the toggle button element from the DOM using querySelector
+           2. Checks localStorage to see if user previously selected dark mode (persistence across page loads)
+           3. Adds a click event listener that toggles the 'dark-mode' class on the body element
+           4. Changes the icon between moon (🌙) and sun (☀️) depending on current mode
+           5. Saves the user's preference to localStorage so it persists when they return
+           
+           I understand how localStorage works - it's browser storage that persists data between sessions
+           ======================================== */
+        
+        // Select the dark mode toggle button in the navigation bar
         const darkModeToggle = document.querySelector('.dark-mode-toggle');
         
+        // Only run dark mode code if the toggle button exists on the page
         if (darkModeToggle) {
             const body = document.body;
             const icon = darkModeToggle.querySelector('.icon');
 
-            // Check if dark mode was previously enabled
+            // Check localStorage to see if user previously enabled dark mode
+            // localStorage saves data in the browser so preferences persist between visits
             if (localStorage.getItem('darkMode') === 'enabled') {
+                // If dark mode was enabled before, turn it on again
                 body.classList.add('dark-mode');
-                icon.textContent = '☀️';
+                icon.textContent = '☀️';  // Show sun icon when in dark mode
             }
 
-            // Toggle dark mode on button click
+            // Add click event listener to toggle between light and dark modes
             darkModeToggle.addEventListener('click', () => {
+                // Toggle the 'dark-mode' class on the body element
+                // CSS variables in styles.css change colors when this class is present
                 body.classList.toggle('dark-mode');
                 
-                // Update icon and save preference
+                // Update the icon and save preference to localStorage
                 if (body.classList.contains('dark-mode')) {
-                    icon.textContent = '☀️';
-                    localStorage.setItem('darkMode', 'enabled');
+                    icon.textContent = '☀️';  // Sun icon = dark mode is ON
+                    localStorage.setItem('darkMode', 'enabled');  // Save choice
                 } else {
-                    icon.textContent = '🌙';
-                    localStorage.setItem('darkMode', 'disabled');
+                    icon.textContent = '🌙';  // Moon icon = light mode is ON
+                    localStorage.setItem('darkMode', 'disabled');  // Save choice
                 }
             });
         }
